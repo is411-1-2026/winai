@@ -1,0 +1,19 @@
+GET http://127.0.0.1:8000/
+###
+GET http://127.0.0.1:8000/users/
+###
+GET http://127.0.0.1:8000/user/123
+###
+GET http://127.0.0.1:8000/users?skip=1&limit=4
+###
+POST http://127.0.0.1:8000/ticket/
+Content-Type: application/json
+
+{
+  "name": "Museum",
+  "description": "All day",
+  "price": 100
+}
+###
+
+# Comment

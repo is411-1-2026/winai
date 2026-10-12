@@ -13,5 +13,10 @@ export const posts = [
         slug: 'cake',
         title: 'This was a triumph',
         content: "<p>I'm making a note here: HUGE SUCCESS.</p>"
+    },
+    {
+        slug: 'is411',
+        title: 'Web development',
+        content: "<p>Fast API + Svelte Kit</p>"
     }
 ]

@@ -1,13 +1,30 @@
 import { error } from '@sveltejs/kit'
-import { posts } from '../data.js'
 
 // @ts-ignore
-export function load({ params }) {
-    const post = posts.find((post) => post.slug === params.slug)
+export async function load({ params }) {
+    const url = `https://jsonplaceholder.typicode.com/posts/${params.slug}`
 
-    if (!post) error(404)
+    try {
+        console.log(`Fetching data from API ${url}`)
+        const response = await fetch(url)
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`)
+        }
 
-    return {
-        post
+        const data = await response.json()
+        
+        if (!data) error(404)
+
+        const post = {
+            "title": data.title,
+            "content": data.body
+        }
+
+        return {
+            post
+        }
+    } catch (error) {
+        // @ts-ignore
+        console.error(error.message)
     }
 }

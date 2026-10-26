@@ -1,0 +1,24 @@
+<script>
+    let { data } = $props()
+</script>
+
+<div class="centered">
+    <h1>Todos</h1>
+    <form method="post" action="?/create">
+        <label>
+            add a todo:
+            <input type="text" name="description" autocomplete="off" />
+        </label>
+    </form>
+    <ul class="todos">
+        {#each data.todos as todo (todo.id)}
+            <li>
+                <form action="?/delete" method="post">
+                    <input type="hidden" name="id" value={todo.id} />
+                    <span>{todo.description}</span>
+                    <button>Complete</button>
+                </form>
+            </li>
+        {/each}
+    </ul>
+</div>

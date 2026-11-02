@@ -1,13 +1,23 @@
 <script>
-    let { data } = $props()
+    let { data, form } = $props()
 </script>
 
 <div class="centered">
     <h1>Todos</h1>
+
+    {#if form?.error}
+        <p class="error" style="color:red">{form.error}</p>
+    {/if}
+
     <form method="post" action="?/create">
         <label>
             add a todo:
-            <input type="text" name="description" autocomplete="off" />
+            <input 
+                type="text" 
+                name="description" 
+                value={form?.description ?? ''} 
+                autocomplete="off" 
+            />
         </label>
     </form>
     <ul class="todos">

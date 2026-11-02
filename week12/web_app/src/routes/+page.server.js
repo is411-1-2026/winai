@@ -1,4 +1,5 @@
 import * as db from '#lib/database.js'
+import { fail } from '@sveltejs/kit'
 
 // @ts-ignore
 export function load({ cookies }) {
@@ -18,10 +19,19 @@ export const actions = {
     // @ts-ignore
     create: async ({ cookies, request }) => {
         const data = await request.formData()
-        db.createTodo(
-            cookies.get('userid'), 
-            data.get('description'),
-        )
+        
+        try {
+            db.createTodo(
+                cookies.get('userid'), 
+                data.get('description'),
+            )
+        } catch (error) {
+            return fail(422, {
+                // @ts-ignore
+                error: error.message,
+                description: data.get('description')
+            })
+        }
     },
     // @ts-ignore
     delete: async ({ cookies, request}) => {
